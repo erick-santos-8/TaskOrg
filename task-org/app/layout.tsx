@@ -5,8 +5,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import GlobalStyleProvider from "./providers/GlobalStyleProvider";
 import ContextProvider from "./providers/ContextProvider";
 
-import { ClerkProvider} from '@clerk/nextjs';
-import { auth } from '@clerk/nextjs/server'
+import { ClerkProvider } from '@clerk/nextjs';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +27,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {userId} = auth();
-  console.log(userId)
-
   return (
     <ClerkProvider>
 
@@ -43,7 +39,7 @@ export default function RootLayout({
         >
           <ContextProvider>
             <GlobalStyleProvider>
-              {userId && <Sidebar />}
+              <Sidebar />
               <div className="w-full">
                 {children}
               </div>
