@@ -1,18 +1,17 @@
 import prisma from "@/app/utils/connect";
 import { auth } from "@clerk/nextjs/server";
-import { error } from "console";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized", status: 401 });
     }
-
+    
     const { title, description, date, completed, important } = await req.json();
-
+  
     if (!title || !description || !date) {
       return NextResponse.json({ error: "Missing required fields", status: 400 })
     }
@@ -31,15 +30,15 @@ export async function POST(req: Request) {
         userId,
       },
     });
-
-    return NextResponse.json({task});
+    
+    return NextResponse.json(task);
   } catch (error) {
     console.log("ERROR CREATING TASK: ", error);
     return NextResponse.json({ error: "Error creating task", status: 500 });
   }
 }
 
-export async function GET(req: Resquest) {
+export async function GET(req: Request) {
   try {
 
   } catch (error) {
@@ -48,7 +47,7 @@ export async function GET(req: Resquest) {
   }
 }
 
-export async function PUT(req: Resquest) {
+export async function PUT(req: Request) {
   try {
 
   } catch (error) {
@@ -57,7 +56,7 @@ export async function PUT(req: Resquest) {
   }
 }
 
-export async function DELETE(req: Resquest) {
+export async function DELETE(req: Request) {
   try {
 
   } catch (error) {
